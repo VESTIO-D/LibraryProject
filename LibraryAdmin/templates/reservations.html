@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book | Table</title>
+</head>
+<body>
+    <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><br>
+                    <h4 class="card-title">Reservations</h4>
+                    <p class="card-description"> current reservations
+                    </p>
+                    <div class="table-responsive">
+                      {% if data %}
+                      <table class="table table-bordered text-center">
+                        <thead>
+                          <tr>
+                            <th>Reservation Id</th>
+                            <th>Collecting Date</th>
+                            <th>Book name</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td>{{i.orderid}}</td>
+                            <td>{{i.booking_date|date:"Y-m-d" }}</td>
+                            <td><a href="{% url 'Book' ID=i.user.id %}"><img style="height:100px; width:75px; border-radius:5px;" src="{{i.book.b_img.url}}"><br>
+                              {{i.book.bname}}</a>
+                            </td>
+                            <td class="description-cell"><a href="{% url 'Member' ID=i.user.id %}"> {{i.user.username}}</a></td>
+                            <td>{{i.user.email}}</td>
+                            <td>
+                                <form method="post" action="{% url 'SaveRecords' %}">
+                                  {% csrf_token %}
+                                  <input type="text" value="{{i.orderid}}" hidden="hidden" name="orderid">
+                                  <button type="submit" style="margin-bottom:20px;" class="badge badge-primary" id="deliver">Delivered</button><br>
+                                  <a style="margin-bottom:20px; border-radius:25px;" href="#" class="badge badge-danger"> Reject </a>
+                                </form>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      {% else %}
+                      <h2>No Reservations</h2>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

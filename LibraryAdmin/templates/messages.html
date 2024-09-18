@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member | Table</title>
+</head>
+<body>
+{% if data %}
+    <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><br>
+                    <h4 class="card-title">USER Details</h4>
+                    <p class="card-description"> Details as membership
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-striped text-center">
+                        <thead>
+                          <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>sub</th>
+                            <th>message</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td class="text-danger">{{i.name}}</td>
+                            <td class="text-danger">{{i.email}}</td>
+                            <td class="text-danger">{{i.subject}}</td>
+                            <td class="text-danger">{{i.message}}</td>
+                            <td>
+                              <a href="{% url 'DeleteMessages' ID=i.id %}" class="badge badge-danger">DELETE</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+{% else %}
+  <div class="">
+    No Messages
+  </div>
+{% endif %}
+</body>
+</html>
+{% endblock %}

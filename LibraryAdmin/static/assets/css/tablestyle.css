@@ -1,0 +1,50 @@
+/* Ensure long text in the description column wraps */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td.description-cell {
+    max-width: 300px; /* Adjust this value as needed */
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+a{
+    margin-bottom: 5px;
+}
+/* Ensure long text in the description column wraps */
+td.description-cell {
+    max-width: 300px; /* Adjust this value as needed */
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Center table content */
+.table {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.badge {
+    display: inline-block;
+    width: auto;
+    text-align: center;
+}
+
+.badge-primary,
+.badge-danger {
+    cursor: pointer;
+}

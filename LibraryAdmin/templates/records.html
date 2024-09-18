@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book | Table</title>
+</head>
+<body>
+    <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><br>
+                    <h4 class="card-title">Book Records</h4>
+                    <p class="card-description"> book Transactions
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered text-center">
+                        <thead>
+                          <tr>
+                            <th>Order Id</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Book name</th>
+                            <th>Collected Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                            <th>Returned Date</th>
+                            <th>Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td>{{i.orderid}}</td>
+                            <td class="description-cell"><a href="{% url 'Member' ID=i.user.id %}"> {{i.user.username}}</a></td>
+                            <td>{{i.user.email}}</td>
+                            <td><a href="{% url 'Book' ID=i.user.id %}"><img style="height:100px; width:75px; border-radius:5px;" src="{{i.book.b_img.url}}"><br>
+                              {{i.book.bname}}</a>
+                            </td>
+                            <td>{{i.collected_time|date:"Y-m-d"}}</td>
+                            <td>{{i.return_date|date:"Y-m-d" }}</td>
+                            <td><label class="badge badge-danger" style="background-color:white; color:red;">{{i.status}}</label></td>
+                            <td>{{i.returned_date|date:"Y-m-d"}}</td>
+                            {% if i.status == "Returned" %}
+                            <td><label class="badge badge-success">{{i.status}}</label></td>
+                            {% else %}
+                            <td>
+                              <a style="margin-bottom:20px;"  href="{% url 'ReturnBook' ID=i.orderid  %}" class="badge badge-primary">Accept</a><br>
+                              {% if i.status == "Due" and i.notification == 0 %}
+                                <a style="margin-bottom:20px; border-radius:25px;" href="{% url 'notify' ID=i.orderid  %}" class="badge badge-danger" > Notify </a>
+                              {% elif i.status == "Due" %}
+                                <label class="badge badge-success">Notified</label>
+                              {% endif %}
+                            </td>
+                            {% endif %}
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

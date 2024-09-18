@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add | Books</title>
+</head>
+<body>
+     <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Book genre</h4>
+                    <p class="card-description"> Add type of books which readers enjoy <i class="ti-book text-primary ms-1"></i></p>
+                    <form class="forms-sample" action="{% url 'addbook' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName2">Book Name</label>
+                        <input type="text" class="form-control" id="exampleInputName2" placeholder="Name" name="bname">
+                      </div>
+                      <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-form-label">Category</label>
+                            <div class="col-sm-12">
+                              <select class="form-select" name="genre">
+                              {% for i in data %}
+                                <option>{{i.genre}}</option>
+                              {% endfor %}
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Price</label>
+                        <input type="number"  class="form-control" id="exampleInputCity1" placeholder="0" name="price">
+                      </div>
+                     <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text"  class="form-control" id="author" placeholder="Author" name="author">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" placeholder="Description" name="description"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label>File upload</label>
+                          <input type="file" name="b_img" class="file-upload-default" onchange="previewImage(event)">
+                          <div class="input-group col-xs-12 d-flex align-items-center">
+                              <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
+                              <span class="input-group-append ms-2">
+                                  <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                              </span>
+                          </div>
+                          <div class="image-preview mt-3">
+                              <img id="imagePreview" src="" alt="Image Preview" style="display: none; width: 200px; height: auto;">
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</html>
