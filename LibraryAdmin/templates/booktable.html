@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book | Table</title>
+</head>
+<body>
+    <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><br>
+                    <h4 class="card-title">BOOK Details</h4>
+                    <p class="card-description"> Inventory Details
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered text-center">
+                        <thead>
+                          <tr>
+                            <th>Book Name</th>
+                            <th>Genre</th>
+                            <th>Author</th>
+                            <th>Description</th>
+                            <th>Cover Image</th>
+                            <th>Price</th>
+                            <th>Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td>{{i.bname}}</td>
+                            <td>{{i.genre}}</td>
+                            <td>{{i.author}}</td>
+                            <td class="description-cell">{{i.description}}</td>
+                            <td><img style="height:100px; width:75px; border-radius:5px;" src="{{i.b_img.url}}"></td>
+                            <td>{{i.price}}</td>
+                            <td>
+                              <a style="margin-bottom:20px;"  href="{% url 'bookedit' Bid=i.id %}" class="badge badge-primary">UPDATE</a><br>
+                              <a href="{% url 'DeleteBook' Bid=i.id %}" class="badge badge-danger">DELETE</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

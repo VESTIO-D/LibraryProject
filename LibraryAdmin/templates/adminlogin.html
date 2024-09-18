@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <link rel="stylesheet" href="{% static 'assets/css/AdminLogin.css' %}">
+</head>
+<body>
+    <div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>Admin<span>Login</span></div>
+		</div>
+		<br>
+		<div class="login">
+			<form action="{% url 'AdminLogin' %}" method="post">
+				{% csrf_token %}
+				<input type="text" placeholder="username" name="user"><br>
+				<input type="password" placeholder="password" name="password"><br>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}', '', 'warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}', '', 'error');
+                </script>
+            {% elif i.tags == 'info' %}
+                <script>
+                    swal('{{i}}', '', 'info');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}', '', 'success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</html>

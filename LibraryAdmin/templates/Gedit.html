@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Book genre</h4>
+                    <p class="card-description"> Add type of books which readers enjoy <i class="ti-book text-primary ms-1"></i></p>
+                    <form class="forms-sample" action="{% url 'UpdateGenre' GId=data.id %}" method="post">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Genre Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="genre" value="{{data.genre}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Category code</label>
+                        <input type="number" max="999" min="100" class="form-control" id="exampleInputCity1" placeholder="0" name="ccode" value="{{data.ccode}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" placeholder="Description" name="description">{{data.description}}</textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

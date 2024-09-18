@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member | Table</title>
+</head>
+<body>
+{% if data %}
+    <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><br>
+                    <h4 class="card-title">USER Details</h4>
+                    <p class="card-description"> Details as membership
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-bordered text-center">
+                        <thead>
+                          <tr>
+                            <th>User Name</th>
+                            <th>Phone No</th>
+                            <th>Email</th>
+                            <th>Dob</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td class="text-danger">{{i.username}}</td>
+                            <td class="text-danger">{{i.phone}}</td>
+                            <td class="text-danger">{{i.email}}</td>
+                            <td class="text-danger">{{i.dob}}</td>
+                            <td>
+                              <a style="margin-bottom:20px;"  href="{% url 'MemberEdit' Mid=i.id %}" class="badge badge-primary">UPDATE</a><br>
+                              <a href="{% url 'DeleteMember' Mid=i.id %}" class="badge badge-danger">DELETE</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+{% else %}
+  <div class="">
+    no members
+  </div>
+{% endif %}
+</body>
+</html>
+{% endblock %}

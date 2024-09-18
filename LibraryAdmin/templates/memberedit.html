@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Add | Books</title>
+</head>
+<body>
+     <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Edit Member Details</h4>
+                    <p class="card-description"> Edit existing member details <i class="ti-user text-primary ms-1"></i></p>
+                    <form class="forms-sample" action="{% url 'UpdateMembership' Mid=data.id %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName2">User Name</label>
+                        <input type="text" class="form-control" id="exampleInputName2"  name="name" value="{{data.username}}">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputCity1">Phone</label>
+                        <input type="number"  class="form-control" id="exampleInputCity1"  name="phone" value="{{data.phone}}">
+                      </div>
+                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text"  class="form-control" id="email" placeholder="0" name="email" value="{{data.email}}">
+                      </div>
+                     <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password"  class="form-control" id="password" placeholder="0" name="password" value="{{data.password}}">
+                      </div>
+                     <div class="form-group">
+                        <label for="dob">Dob</label>
+                        <input type="date" class="form-control" id="dob" name="dob" value="{{ data.dob|date:'Y-m-d' }}">
+
+                      </div>
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
+                      <a href="{% url 'MembershipTable' %}"> <button type="button" class="btn btn-light">Cancel</button></a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</html>

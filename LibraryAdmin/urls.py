@@ -1,0 +1,38 @@
+from django.urls import path
+
+from LibraryAdmin import views
+
+urlpatterns = [
+    path('home/', views.home, name="home"),
+    path('genrepage/', views.genrepage, name="genrepage"),
+    path('AddGenre/', views.AddGenre, name="AddGenre"),
+    path('genretable/', views.genretable, name="genretable"),
+    path('Gedit/<int:GId>', views.Gedit, name="Gedit"),
+    path('UpdateGenre/<int:GId>', views.UpdateGenre, name="UpdateGenre"),
+    path('DeleteGenre/<int:GId>', views.DeleteGenre, name="DeleteGenre"),
+    path('bookpage/', views.bookpage, name="bookpage"),
+    path('addbook/', views.addbook, name="addbook"),
+    path('booktable/', views.booktable, name="booktable"),
+    path('bookedit/<int:Bid>', views.bookedit, name="bookedit"),
+    path('UpdateBooks/<int:Bid>', views.UpdateBooks, name="UpdateBooks"),
+    path('DeleteBook/<int:Bid>', views.DeleteBook, name="DeleteBook"),
+    path('', views.LoginPage, name="LoginPage"),
+    path('AdminLogin/', views.AdminLogin, name="AdminLogin"),
+    path('AdminLogout/', views.AdminLogout, name="AdminLogout"),
+    path('Membership/', views.Membership, name="Membership"),
+    path('MembershipApproval/', views.MembershipApproval, name="MembershipApproval"),
+    path('RemoveMembership/<int:Id>', views.RemoveMembership, name="RemoveMembership"),
+    path('MembershipTable/', views.MembershipTable, name="MembershipTable"),
+    path('ReservationTable/', views.ReservationTable, name="ReservationTable"),
+    path('records/', views.records, name="records"),
+    path('MessagePage/', views.MessagePage, name="MessagePage"),
+    path('SaveRecords/', views.SaveRecords, name="SaveRecords"),
+    path('Member/<int:ID>', views.Member, name="Member"),
+    path('MemberEdit/<int:Mid>', views.MemberEdit, name="MemberEdit"),
+    path('UpdateMembership/<int:Mid>', views.UpdateMembership, name="UpdateMembership"),
+    path('DeleteMember/<int:Mid>', views.DeleteMember, name="DeleteMember"),
+    path('Book/<int:ID>', views.Book, name="Book"),
+    path('ReturnBook/<int:ID>', views.ReturnBook, name="ReturnBook"),
+    path('notify/<int:ID>', views.notify, name="notify"),
+    path('DeleteMessages/<int:ID>', views.DeleteMessages, name="DeleteMessages"),
+]

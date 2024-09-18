@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Genre | Table</title>
+</head>
+<body>
+    <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body"><br>
+                    <h4 class="card-title">Genre</h4>
+                    <p class="card-description"> genre types available
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Genre Name</th>
+                            <th>Description</th>
+                            <th>Genre Code</th>
+                            <th>Options</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td>{{i.genre}}</td>
+                            <td class="description-cell">{{i.description}}</td>
+                            <td>{{i.ccode}}</td>
+                            <td>
+                              <a style="margin-bottom:20px;" href="{% url 'Gedit' GId=i.id %}" class="badge badge-primary">UPDATE</a><br>
+                              <a href="{% url 'DeleteGenre' GId=i.id %}" class="badge badge-danger">DELETE</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block contents %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Members</title>
+  <style>
+        /* Hide the form */
+        #hiddenForm {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+{% if data %}
+  <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Membership Requests</h4>
+                    <p class="card-description"> request  <code>.for membership</code>
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>User</th>
+                            <th>Phone No</th>
+                            <th>Email</th>
+                            <th>Dob</th>
+                            <th>Password</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in data %}
+                          <tr>
+                            <td class="text-danger">{{i.username}}</td>
+                            <td class="text-danger">{{i.phone}}</td>
+                            <td class="text-danger">{{i.email}}</td>
+                            <td class="text-danger">{{i.dob}}</td>
+                            <td class="text-danger">{{i.password}}</td>
+                            <td>
+                              <a id="approve-btn" href="#" class="badge badge-success">Approve</a><br><br>
+                              <a href="{% url 'RemoveMembership' Id=i.id %}" class="badge badge-warning">Disprove</a>
+                            </td>
+                            <td>
+                              <form id="hiddenForm" action="{% url 'MembershipApproval' %}" method="post">
+                                  {% csrf_token %}
+                                  <input type="text" name="name" value="{{i.username}}" />
+                                  <input type="email" name="email" value="{{i.email}}" />
+                                  <input type="number" name="phone" value="{{i.phone}}" />
+                                  <input type="text" name="password" value="{{i.password}}" />
+                                  <input type="password" name="id" value="{{i.id}}" />
+                                  <input type="date" name="dob" value="{{ i.dob|date:'Y-m-d' }}" />
+                                  <button id="approve_member" type="submit">Submit</button>
+                              </form>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+{% else %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card-body">
+        <h1 class="badge-success"> NO Pending Request</h1>
+    </div>
+</div>
+{% endif %}
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#approve-btn").click(function(){
+            $("#approve_member").click()
+        })
+    })
+</script>
+</html>
+{% endblock %}
