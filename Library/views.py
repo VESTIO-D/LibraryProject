@@ -11,6 +11,30 @@ from django.urls import reverse
 from Library.models import TempMembership, NotificationDB, ContactDB
 from LibraryAdmin.models import LibraryMembersDB, LibraryBooksDB, BookCategoryDB, ReviewDB, Booking, BookRecords
 
+# api views
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import BookSerializer, ReviewSerializer
+
+
+@api_view(['GET'])
+def get_books(request):
+    books = LibraryBooksDB.objects.all()
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def bookdetail(req, id):
+    details = LibraryBooksDB.objects.get(id=id)
+    review = ReviewDB.objects.filter(bookname=details)
+    serializer = BookSerializer(details)
+    reviews_serializer = ReviewSerializer(review, many=True)
+    return Response({
+        'book': serializer.data,
+        'review': reviews_serializer.data
+    })
+
 
 # Create your views here.
 def Home(req):
@@ -185,7 +209,6 @@ def SingleBook(req, Id):
                     'exist_review': exist_review
                 })
 
-
         return render(req, "single_book.html", {
             'book': book,
             'data': data,
@@ -235,7 +258,6 @@ def updateReview(req, Id, bid):
         return redirect(reverse('SingleBook', args=[bid]))
 
 
-
 def ReserveBook(req):
     if 'username' in req.session:
         if req.method == "POST":
@@ -263,7 +285,7 @@ def BorrowRecords(req):
         due_books = BookRecords.objects.filter(user=user, status='Due')
         returned_books = BookRecords.objects.filter(user=user, status='Returned')
         records = list(due_books) + list(pending_books) + list(returned_books)
-        return render(req, "bookrecords.html", {'records':records, 'cat':cat})
+        return render(req, "bookrecords.html", {'records': records, 'cat': cat})
     else:
         messages.error(req, "Login Required")
         return redirect(Home)
@@ -271,7 +293,7 @@ def BorrowRecords(req):
 
 def ContactPage(req):
     cat = BookCategoryDB.objects.all()
-    return render(req, "contact.html", {'cat':cat})
+    return render(req, "contact.html", {'cat': cat})
 
 
 def SaveContact(req):
@@ -308,7 +330,7 @@ def Notification(req, uname):
     cat = BookCategoryDB.objects.all()
     user = LibraryMembersDB.objects.get(username=uname)
     notice = NotificationDB.objects.filter(user=user).order_by('-id')
-    return render(req, "mails.html", {'notice':notice, 'cat':cat})
+    return render(req, "mails.html", {'notice': notice, 'cat': cat})
 
 
 def deleteNotification(req, ID):
@@ -320,4 +342,4 @@ def deleteNotification(req, ID):
 
 def AboutPage(req):
     cat = BookCategoryDB.objects.all()
-    return render(req, "about.html", {'cat':cat})
+    return render(req, "about.html", {'cat': cat})

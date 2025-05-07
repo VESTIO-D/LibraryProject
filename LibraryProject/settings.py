@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'corsheaders',
+    'rest_framework',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,5 +129,8 @@ EMAIL_HOST_USER = 'luminarprojectlibrary@gmail.com'
 EMAIL_HOST_PASSWORD = 'aphzwmebeutnavpd'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 ALLOWED_HOSTS = []

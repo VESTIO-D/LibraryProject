@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 import LibraryAdmin.urls
 import Library.urls
+import Library.api_urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns,static
 
 from LibraryProject import settings
@@ -26,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('LibraryAdmin/', include(LibraryAdmin.urls)),
     path('', include(Library.urls)),
+    path('api/', include('Library.api_urls')),
 ]
 
 
